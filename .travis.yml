@@ -120,7 +120,11 @@ script:
   - python2.4 -m compileall -fq -x 'cloud/|monitoring/zabbix.*\.py|/dnf\.py|/layman\.py|/maven_artifact\.py|clustering/(consul.*|znode)\.py|notification/pushbullet\.py|database/influxdb/influxdb.*\.py|database/mssql/mssql_db\.py|/letsencrypt\.py|network/f5/bigip.*\.py|bmc/ipmi/.*\.py' .
   - python2.6 -m compileall -fq .
   - python2.7 -m compileall -fq .
+<<<<<<< 6fb1ec9defa21717b228a0c14a62a32f4ed4ebb8
   - python3.4 -m compileall -fq . -x $(echo "$PY3_EXCLUDE_LIST"| tr ' ' '|')
   - python3.5 -m compileall -fq . -x $(echo "$PY3_EXCLUDE_LIST"| tr ' ' '|')
   - ansible-validate-modules .
+=======
+  - ansible-validate-modules --exclude 'cloud/cloudstack/cs_template\.py|cloud/centurylink/clc_aa_policy\.py|cloud/centurylink/clc_alert_policy\.py|cloud/centurylink/clc_blueprint_package\.py|cloud/centurylink/clc_firewall_policy\.py|cloud/centurylink/clc_group\.py|cloud/centurylink/clc_loadbalancer\.py|cloud/centurylink/clc_modify_server\.py|cloud/centurylink/clc_publicip\.py|cloud/centurylink/clc_server\.py|cloud/centurylink/clc_server_snapshot\.py|cloud/docker/docker_login\.py|messaging/rabbitmq_binding\.py|messaging/rabbitmq_exchange\.py|messaging/rabbitmq_queue\.py|monitoring/circonus_annotation\.py|network/snmp_facts\.py|notification/sns\.py|cloud/cloudstack/cs_template\.py' .
+>>>>>>> travis: exlcude cs_template to fix build failure (#2168)
   #- ./test-docs.sh extras
