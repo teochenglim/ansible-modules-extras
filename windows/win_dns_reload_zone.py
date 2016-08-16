@@ -45,3 +45,11 @@ EXAMPLES = '''
 # To reload a windows DNS zone (After added/edited/deleted IP).
 - win_dns_reload_zone: zone="example.com"
 '''
+
+RETURN = """
+zone:
+  description: The zone which need the reload
+  returned: always
+  type: string
+  sample: "example.com"
+"""
