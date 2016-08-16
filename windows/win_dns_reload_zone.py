@@ -22,7 +22,7 @@
 DOCUMENTATION = '''
 ---
 module: win_dns_add
-version_added: "1.0.0"
+version_added: "2.2.0"
 short_description: Reload a windows DNS zone (After added/edited/deleted IP).
 description:
      - reload a windows DNS zone (After added/edited/deleted IP).
