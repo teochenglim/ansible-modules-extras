@@ -153,6 +153,9 @@ ufw: rule=allow name=OpenSSH delete=yes
 # Deny all access to port 53:
 ufw: rule=deny port=53
 
+# Allow port range 60000-61000
+ufw: rule=allow port=60000:61000
+
 # Allow all access to tcp port 80:
 ufw: rule=allow port=80 proto=tcp
 
@@ -225,7 +228,7 @@ def main():
     if len(commands) < 1:
         module.fail_json(msg="Not any of the command arguments %s given" % commands)
 
-    if('interface' in params and 'direction' not in params):
+    if('interface' in params and params['direction'] is None):
       module.fail_json(msg="Direction must be specified when creating a rule on an interface")
 
     # Ensure ufw is available
