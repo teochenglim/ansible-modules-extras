@@ -22,7 +22,7 @@
 DOCUMENTATION = '''
 ---
 module: win_dns_zone
-version_added: "1.1.0"
+version_added: "2.2.0"
 short_description: Windows Server DNS Primary Zone Create/Remove/Reload
 description:
      - Windows Server DNS Primary Zone Create/Remove/Reload
@@ -58,3 +58,11 @@ EXAMPLES = '''
 # To remove existing Windows DNS primary zone
 - win_dns_zone: state="absent" zone="example.com"
 '''
+
+RETURN = """
+zone:
+  description: input variable and the status
+  returned: always
+  type: string
+  sample: "example.com"
+"""

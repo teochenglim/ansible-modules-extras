@@ -64,19 +64,18 @@ $result = New-Object psobject @{
 # query existing record from DNS server
 $zone_out = get-dnsserverzone -zonename $zone -erroraction 'silentlycontinue'
 
-Set-Attr $result.zone "zone 1" "zone:$zone state:$state"
+Set-Attr $result.zone "input variable" "zone:$zone state:$state"
 if ($state -eq "reload")
 {
-    Set-Attr $result.zone "zone 2" "zone:$zone state:$state"
     if (!$zone_out)
     {
-        Set-Attr $result.zone "zone 3" "zone:$zone state:$state"
+        Set-Attr $result.zone "status" "Action: Reload, Status: No such zone"
         $result.changed = $FALSE
         Fail-Json (New-Object psobject) "No such zone at this server: $zone"
     }
     else
     {
-        Set-Attr $result.zone "zone 3.5" "zone:$zone state:$state"
+        Set-Attr $result.zone "status" "Action: Reload, Status: Reloaded zone: $zone"
         dnscmd /zonereload $zone
         $result.changed = $TRUE
     }
@@ -84,15 +83,14 @@ if ($state -eq "reload")
 
 if ($state -eq "present")
 {
-    Set-Attr $result.zone "zone 4" "zone:$zone state:$state"
     if(!$zone_out)
     {
-        Set-Attr $result.zone "zone 5" "zone:$zone state:$state"
+        Set-Attr $result.zone "status" "Action: Add, Status: Added zone: $zone"
         Add-DnsServerPrimaryZone -Name $zone -ReplicationScope "Forest" -erroraction 'silentlycontinue'
     }
     else
     {
-        Set-Attr $result.zone "zone 6" "zone:$zone state:$state"
+        Set-Attr $result.zone "status" "Action: Add, Status: Removed and then Added zone: $zone"
         Remove-DnsServerZone $zone -force -erroraction 'silentlycontinue'
         Add-DnsServerPrimaryZone -Name $zone -ReplicationScope "Forest" -erroraction 'silentlycontinue'
     }
@@ -101,19 +99,18 @@ if ($state -eq "present")
 
 if ($state -eq "absent")
 {
-    Set-Attr $result.zone "zone 7" "zone:$zone state:$state zone_out:$zone_out"
     if(!$zone_out)
     {
+        Set-Attr $result.zone "status" "Action: Remove, Status: No such zone: $zone"
         $result.changed = $FALSE
     }
     else
     {
-        Set-Attr $result.zone "zone 8" "zone:$zone state:$state"
+        Set-Attr $result.zone "status" "Action: Remove, Status: Removed zone: $zone"
         Remove-DnsServerZone $zone -force -erroraction 'silentlycontinue'
         $result.changed = $TRUE
     }
 }
 
-Set-Attr $result.zone "zone 9" "zone:$zone state:$state"
 
 Exit-Json $result
