@@ -84,7 +84,7 @@ if ( $state.ToLower() -eq "present" )
     if (!$dns_out)
     {
         # adding new record
-        If( $ptr -and $ptr -is [Boolean])
+        If( $ptr -and $ptr -is [Boolean] )
         {
             Add-DnsServerResourceRecordA -Name $hostname -IPv4Address $ip -ZoneName $zone -CreatePtr
         }
