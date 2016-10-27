@@ -22,7 +22,7 @@
 DOCUMENTATION = '''
 ---
 module: win_dns_arecord
-version_added: "2.2.0"
+version_added: "2.3.0"
 short_description: Creates Windows DNS Server A record and PTR record.
 description:
      - Creates new DNS A record and optionally create PTR record.
